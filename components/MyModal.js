@@ -9,8 +9,18 @@ import {
 } from "react-native";
 import React from "react";
 import LottieView from "lottie-react-native";
+import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
+import { Animated } from 'react-native';
+
 
 const MyModal = ({ isModalVisible, closeModal }) => {
+
+  const [showFirstForm , setShowFirstForm] = React.useState(false);
+
+  const [slideAnimation] = React.useState(new Animated.Value(0));
+
+
+
   return (
     <Modal
       style={styles.overlay}
@@ -38,9 +48,61 @@ const MyModal = ({ isModalVisible, closeModal }) => {
           <View>
             <Text>Entrez les informations de la prescription</Text>
           </View>
-          <View style={styles.inputContainer}>
-            
-          </View>
+          {showFirstForm ? (
+  <View style={styles.inputContainer}>
+    <TextInput
+      style={styles.input}
+      placeholder="Nom"
+      placeholderTextColor="#000"
+    />
+    <TextInput
+      style={styles.input}
+      placeholder="Prénom"
+      placeholderTextColor="#000"
+    />
+    <TextInput
+      style={styles.input}
+      placeholder="Date de naissance"
+      placeholderTextColor="#000"
+    />
+    <TextInput
+      style={styles.input}
+      placeholder="Adresse"
+      placeholderTextColor="#000"
+    />
+
+    <Pressable
+      style={styles.buttonAdd}
+      onPress={() => setShowFirstForm(false)}
+    >
+      <Text style={styles.textAdd}>Suivant</Text>
+    </Pressable>
+  </View>
+) : (
+  <View style={styles.inputContainer2} >
+    <Text>Autres informations</Text>
+    <TextInput
+      style={styles.input2}
+      placeholder="Information 1"
+      placeholderTextColor="#000"
+    />
+    <TextInput
+      style={styles.input2}
+      placeholder="Information 2"
+      placeholderTextColor="#000"
+    />
+
+    <Pressable
+      style={styles.buttonAdd}
+      onPress={() => setShowFirstForm(true)}
+    >
+      <Text style={styles.textAdd}>Ajouter</Text>
+    </Pressable>
+  </View>
+)}
+
+
+          
         </View>
       </View>
     </Modal>
@@ -48,6 +110,55 @@ const MyModal = ({ isModalVisible, closeModal }) => {
 };
 
 const styles = StyleSheet.create({
+  buttonAdd: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 5,
+    paddingHorizontal: 12,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: "black",
+    width: "100%",
+    // marginLeft:39,
+    marginTop: 5,
+    marginBottom: 5
+  },
+  textAdd: {
+    fontSize: 10,
+    lineHeight: 21,
+    fontWeight: "bold",
+    letterSpacing: 0.25,
+    color: "white"
+  },
+  inputContainer: {
+    height: "100%",
+    width: "100%",
+    marginTop: 10
+  },
+  input: {
+    // height: 50,
+    width: "100%",
+    backgroundColor: "#f2f2f2",
+    borderRadius: 4,
+    paddingHorizontal: 15,
+    color: "#000",
+    marginBottom: 5,
+    borderColor: "#ccc",
+    borderWidth: 1
+  },
+  input2:{
+    // height: 50,
+    width: "100%",
+    backgroundColor: "#f2f2f2",
+    borderRadius: 4,
+    paddingHorizontal: 15,
+    color: "#000",
+    marginBottom: 5,
+    borderColor: "#ccc",
+    borderWidth: 1,
+    marginTop: 5,
+    
+  },
   centeredView: {
     flex: 1,
     justifyContent: "center",
@@ -65,7 +176,7 @@ const styles = StyleSheet.create({
     padding: 35,
     alignItems: "center",
     shadowColor: "#000",
-    height: 400,
+    height: 468,
     width: "70%",
     backgroundColor: "#fff",
     shadowOffset: {
@@ -98,6 +209,15 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     fontSize: 18,
     fontWeight: "bold"
+  },
+
+  inputContainer2:{
+
+    width:'100%',
+    paddingVertical:15,
+
+    // transform: [{ translateX: slideAnimation }],
+
   }
 });
 

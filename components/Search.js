@@ -18,6 +18,7 @@ const SearchBar = ({ placeholder, onSearch }) => {
 
 const styles = StyleSheet.create({
   container: {
+    // backgroundColor:'#000',
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,

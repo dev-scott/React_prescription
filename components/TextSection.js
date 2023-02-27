@@ -1,39 +1,11 @@
 import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { AntDesign } from "@expo/vector-icons";
+import { ThemeContext } from "../contexts/ThemeContext";
 
-const TextSection = ({ navigation }) => {
-  return (
-    <View style={styles.contain_text}>
-      <View style={styles.left}>
-        <View style={styles.text_contain}>
-          <Text style={styles.textP}>12</Text>
-          <View style={styles.vuS}>
-            <AntDesign name="arrowup" size={14} color="green" />
-            <Text style={styles.textS}>
-              2% <Text style={styles.epaisse}>today</Text>
-            </Text>
-          </View>
-        </View>
-        <Text>Patient appointments</Text>
-      </View>
-      <View style={styles.right}>
-        <AntDesign
-          onPress={() => navigation.navigate("LoginPage")}
-          name="pluscircle"
-          size={55}
-          color="black"
-        />
-      </View>
-    </View>
-  );
-};
-
-export default TextSection;
-
-const styles = StyleSheet.create({
+const styles = isDarkMode => ({
   contain_text: {
-    // backgroundColor: "#f4f4",
+    backgroundColor: isDarkMode ? "#273E47" : "#F8F8F8",
     width: "100%",
     height: 120,
     flexDirection: "row",
@@ -43,7 +15,9 @@ const styles = StyleSheet.create({
   },
 
   textP: {
-    fontSize: 45
+    fontSize: 45,
+    color: isDarkMode ? "#fff" : "#000",
+
   },
   vuS: {
     backgroundColor: "#F7FFF6",
@@ -55,7 +29,7 @@ const styles = StyleSheet.create({
     paddingVertical: 1,
     flexDirection: "row",
     alignItems: "center",
-    paddingLeft:5,
+    paddingLeft: 5,
     paddingRight: 11
   },
 
@@ -72,6 +46,55 @@ const styles = StyleSheet.create({
   },
 
   left: {
-    flexDirection: "column"
+    flexDirection: "column",
+    color: isDarkMode ? "#fff" : "#000",
+  },
+  patient:{
+
+    color: isDarkMode ? "#fff" : "#000",
+
   }
 });
+
+const TextSection = ({ navigation }) => {
+  const { isDarkMode, toggleDarkMode } = useContext(ThemeContext);
+
+  const {
+    contain_text,
+    textP,
+    right,
+    vuS,
+    textS,
+    epaisse,
+    text_contain,
+    patient,
+    left
+  } = styles(isDarkMode);
+
+  return (
+    <View style={contain_text}>
+      <View style={left}>
+        <View style={text_contain}>
+          <Text style={textP}>12</Text>
+          <View style={vuS}>
+            <AntDesign name="arrowup" size={14} color="green" />
+            <Text style={textS}>
+              2% <Text style={epaisse}>today</Text>
+            </Text>
+          </View>
+        </View>
+        <Text style={patient}>Patient appointments</Text>
+      </View>
+      <View style={right}>
+        <AntDesign
+          onPress={() => navigation.navigate("LoginPage")}
+          name="pluscircle"
+          size={55}
+          color={isDarkMode ? "#fff" : "#273E47"}
+        />
+      </View>
+    </View>
+  );
+};
+
+export default TextSection;

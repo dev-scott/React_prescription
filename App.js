@@ -7,10 +7,13 @@ import LoginPage from "./pages/LoginPage";
 import Splash from "./components/SplashScreen";
 import PrescriptionPage from "./pages/PrescriptionPage";
 
+import { ThemeProvider } from "./contexts/ThemeContext";
+
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
+    <ThemeProvider>
     <NavigationContainer independent="true">
       {/* <StatusBar hidden={true} /> */}
       <Stack.Navigator
@@ -26,6 +29,7 @@ export default function App() {
         <Stack.Screen name="PrescriptionPage" component={PrescriptionPage} />
       </Stack.Navigator>
     </NavigationContainer>
+    </ThemeProvider>
   );
 }
 

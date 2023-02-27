@@ -1,44 +1,15 @@
 import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { Foundation } from "@expo/vector-icons";
+import {ThemeContext} from "../contexts/ThemeContext";
 
-const TextSection2 = () => {
-  return (
-    <View style={styles.contain_all}>
-      <Text style={styles.txt2}>Patient statistics</Text>
-      <View style={styles.contain_text}>
-        <View style={[styles.left, styles.left1]}>
-          <View style={styles.text_contain}>
-            <Text style={[styles.textP, styles.text1]}> 12</Text>
-            <View style={styles.vuS}>
-              <AntDesign name="arrowdown" size={12} color="black" />
-              <Text style={styles.textS}>
-                11% <Text style={styles.epaisse}>week</Text>
-              </Text>
-            </View>
-          </View>
-          <Text>Patient appointments</Text>
-        </View>
-        <View style={[styles.left, styles.left2]}>
-          <View style={styles.text_contain}>
-            <Text style={styles.textP}>24</Text>
-            <View style={styles.vuSe}>
-              <Foundation name="graph-bar" size={24} color="black" />
-            </View>
-          </View>
-          <Text>Insurance patients</Text>
-        </View>
-      </View>
-    </View>
-  );
-};  
 
-const styles = StyleSheet.create({
+const styles = (isDarkMode)=>  ({
   contain_text: {
-    backgroundColor: "#fff",
+    backgroundColor: isDarkMode ? "#326273": "#fff",
     width: "100%",
-    height: 200,
+    height: 100,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -46,7 +17,8 @@ const styles = StyleSheet.create({
   },
 
   textP: {
-    fontSize: 45
+    fontSize: 45,
+    color: isDarkMode ? "#fff" : "#000",
   },
   vuS: {
     backgroundColor: "#D4DFC7",
@@ -60,7 +32,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   vuSe: {
-    backgroundColor: "#F7FFF6",
+    borderRadius:12,
     borderRadius: 10,
     marginTop: 16,
     marginLeft: 10,
@@ -72,7 +44,8 @@ const styles = StyleSheet.create({
   },
 
   textS: {
-    fontWeight: "bold"
+    fontWeight: "bold",
+    color: isDarkMode ? "#fff" : "#000",
   },
   text1: {
     // marginRight:30,
@@ -99,16 +72,60 @@ const styles = StyleSheet.create({
   },
 
   txt2: {
-    marginLeft: 20
+    marginLeft: 20,
+    color: isDarkMode ? "#fff" : "#000",
   },
 
   contain_all: {
     marginTop: 10,
-    backgroundColor: "#fff",
+    backgroundColor: isDarkMode ? "#326273" :"#fff",
     paddingVertical: 20,
     borderTopRightRadius: 40,
     borderTopLeftRadius: 40
+  },
+  text01:{
+    color: isDarkMode ? "#fff" : "#000",
   }
 });
+
+
+const TextSection2 = () => {
+
+  const { isDarkMode, toggleDarkMode } = useContext(ThemeContext);
+
+  const { contain_all,txt2,left1,left2,left,text1,textP,textS,epaisse,vuS,vuSe,text_contain,patient ,contain_text , text01 } = styles(isDarkMode);
+
+
+  return (
+    <View style={contain_all}>
+      <Text style={txt2}>Patient statistics</Text>
+      <View style={contain_text}>
+        <View style={[left, left1]}>
+          <View style={text_contain}>
+            <Text style={[textP, text1]}> 12</Text>
+            <View style={vuS}>
+              <AntDesign name="arrowdown" size={12} color="black" />
+              <Text style={textS}>
+                11% <Text style={epaisse}>week</Text>
+              </Text>
+            </View>
+          </View>
+          <Text style={text01}>Patient appointments</Text>
+        </View>
+        <View style={[left, left2]}>
+          <View style={text_contain}>
+            <Text style={textP}>24</Text>
+            <View style={vuSe}>
+              <Foundation name="graph-bar" size={24} color="black" />
+            </View>
+          </View>
+          <Text style={text01}>Insurance patients</Text>
+        </View>
+      </View>
+    </View>
+  );
+};  
+
+
 
 export default TextSection2;
